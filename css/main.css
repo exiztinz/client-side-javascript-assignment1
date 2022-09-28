@@ -1,2 +1,23 @@
 @charset "utf-8";
 /* Assignment 1 | COMP1073 Client-Side JavaScript */
+body {
+    background-color: aqua;
+}
+
+div {
+    text-align: center;
+    margin: auto;
+    margin-top: 500px;
+    display: block;
+}
+
+button {
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 12px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
