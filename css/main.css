@@ -7,7 +7,7 @@ body {
 .buttons {
     text-align: center;
     margin: auto;
-    margin-top: 500px;
+    margin-top: 325px;
     display: block;
 }
 
@@ -19,6 +19,7 @@ button {
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    margin: 2px 0px;
     font-size: 16px;
 }
 
@@ -36,4 +37,34 @@ button {
     background-color: white;
     padding: 18px;
     display: none;
+}
+
+/* Responsive adjustments for mobile devices and tablets */
+@media (max-width: 600px) {
+  /* For mobile devices */
+  .textToSpeak {
+    width: 90%;
+    margin-top: 30px;
+  }
+  .buttons {
+    margin-top: 100px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  /* For tablets */
+  .textToSpeak {
+    width: 80%;
+  }
+  .buttons {
+    margin-top: 150px;
+  }
+  button {
+    padding: 12px 25px;
+    font-size: 15px;
+  }
 }
