@@ -13,4 +13,4 @@ A simple app that replicates the toy, by putting together random words through b
 1. Clone the repo
 2. Open `index.html` in your browser.
 ## Notes
-- This app is optomized for desktop only.
+- This app is optomized for desktop, and mobile.
