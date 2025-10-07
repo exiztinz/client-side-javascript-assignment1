@@ -1,42 +1,135 @@
 @charset "utf-8";
 /* Assignment 1 | COMP1073 Client-Side JavaScript */
 body {
-    background-color: aqua;
+  /* Animated gradient background */
+  --bg1: #a1c4fd; /* light blue */
+  --bg2: #c2e9fb; /* sky */
+  --bg3: #fbc2eb; /* pink */
+  --bg4: #a6c1ee; /* periwinkle */
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(130deg, var(--bg1), var(--bg2), var(--bg3), var(--bg4));
+  background-size: 300% 300%;
+  animation: bgShift 18s ease-in-out infinite;
+}
+
+/* Prefer reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Keyframes for background and UI motion */
+@keyframes bgShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(6px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(6px); }
+}
+
+@keyframes popIn {
+  0% { opacity: 0; transform: translateY(12px) scale(0.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.45); }
+  70% { box-shadow: 0 0 0 14px rgba(255,255,255,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
 }
 
 .buttons {
-    text-align: center;
-    margin: auto;
-    margin-top: 325px;
-    display: block;
+  text-align: center;
+  margin: auto;
+  margin-top: 325px;
+  display: block;
+  animation: popIn 500ms ease-out both;
 }
 
 button {
-    background-color: white;
-    border: none;
-    color: black;
-    padding: 12px 30px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    margin: 2px 0px;
-    font-size: 16px;
+  position: relative;
+  background-color: rgba(255,255,255,0.85);
+  border: none;
+  color: #111;
+  padding: 12px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 2px 0px;
+  font-size: 16px;
+  border-radius: 999px;
+  backdrop-filter: blur(2px);
+  transition: transform 180ms ease, box-shadow 200ms ease, background-color 200ms ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  overflow: hidden; /* for ripple */
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.16);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.14);
+}
+
+button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.6), 0 8px 22px rgba(0,0,0,0.18);
+}
+
+/* Ripple effect using a pseudo-element */
+button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 60%);
+  transition: opacity 600ms ease, transform 600ms ease;
+  pointer-events: none;
+}
+
+button:active::after {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(30);
+}
+
+/* Gentle breathing animation to draw attention */
+.buttons button {
+  animation: pulseGlow 2.8s ease-in-out infinite;
 }
 
 .textToSpeak {
-    text-align: center;
-    margin: auto;
-    margin-top: 50px;
-    width: 400px;
-    display: block;
+  text-align: center;
+  margin: auto;
+  margin-top: 50px;
+  width: 400px;
+  display: block;
+  animation: floatUp 6s ease-in-out infinite;
 }
 
 #textStory {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
-    background-color: white;
-    padding: 18px;
-    display: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  background-color: rgba(255,255,255,0.92);
+  padding: 18px;
+  display: none; /* will be set to block by JS */
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+  animation: popIn 400ms ease-out both; /* runs whenever shown */
 }
 
 /* Responsive adjustments for mobile devices and tablets */
@@ -47,7 +140,7 @@ button {
     margin-top: 30px;
   }
   .buttons {
-    margin-top: 100px;
+    margin-top: 120px;
   }
   button {
     padding: 10px 20px;
@@ -61,10 +154,22 @@ button {
     width: 80%;
   }
   .buttons {
-    margin-top: 150px;
+    margin-top: 180px;
   }
   button {
     padding: 12px 25px;
     font-size: 15px;
   }
+}
+
+/* Subtle animated sheen overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.25;
+  animation: bgShift 22s linear infinite;
 }
